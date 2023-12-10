@@ -1,7 +1,6 @@
-﻿<Application x:Class="WtfApp.App"
+﻿<Application x:Class="WtfDll.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:WtfApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

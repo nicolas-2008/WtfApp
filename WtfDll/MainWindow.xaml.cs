@@ -1,29 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Collections;
-using WtfApp.Utils;
+using WtfDll.Utils;
 
-namespace WtfApp
+namespace WtfDll
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для MainWindow.xaml.
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainViewModel ViewModel { get { return (MainViewModel)this.DataContext; } }
+        /// <summary>
+        /// Gets the ViewModel.
+        /// </summary>
+        private MainViewModel ViewModel
+        {
+            get { return (MainViewModel)this.DataContext; }
+        }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -35,6 +32,11 @@ namespace WtfApp
             btnImiyaNieOpredeleno.Click += BtnImiyaNieOpredeleno_Click;
         }
 
+        /// <summary>
+        /// The BtnImiyaNieOpredeleno_Click.
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/>.</param>
+        /// <param name="e">The e<see cref="RoutedEventArgs"/>.</param>
         private async void BtnImiyaNieOpredeleno_Click(object sender, RoutedEventArgs e)
         {
             foreach (var fileItem in this.ViewModel.SelectedFiles)
@@ -47,22 +49,40 @@ namespace WtfApp
             ClearSelection();
         }
 
+        /// <summary>
+        /// The ProcessFile.
+        /// </summary>
+        /// <param name="fileName">The fileName<see cref="string"/>.</param>
+        /// <returns>The <see cref="Task"/>.</returns>
         private static async Task ProcessFile(string fileName = "undefined")
         {
-            await Task.Delay(3 * 1000); // non-ui blocking
+            await Task.Delay(2 * 1000); // non-ui blocking
         }
 
+        /// <summary>
+        /// The BtnClearSelection_Click.
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/>.</param>
+        /// <param name="e">The e<see cref="RoutedEventArgs"/>.</param>
         private void BtnClearSelection_Click(object sender, RoutedEventArgs e)
         {
             ClearSelection();
             this.statusBar.Content = "Selection has been cleared";
         }
 
+        /// <summary>
+        /// The ClearSelection.
+        /// </summary>
         private void ClearSelection()
         {
             this.lstFileView.SelectedItems.Clear();
         }
 
+        /// <summary>
+        /// The BtnRemoveSelected_Click.
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/>.</param>
+        /// <param name="e">The e<see cref="RoutedEventArgs"/>.</param>
         private void BtnRemoveSelected_Click(object sender, RoutedEventArgs e)
         {
             // get files from selection and remove them from the model collection allFiles
@@ -70,6 +90,11 @@ namespace WtfApp
             this.ViewModel.AllFiles.RemoveMany(selectedFilesCopy);
         }
 
+        /// <summary>
+        /// The ListView_Drop.
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/>.</param>
+        /// <param name="e">The e<see cref="DragEventArgs"/>.</param>
         private void ListView_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop, true))
